@@ -1,4 +1,4 @@
-package com.rehman.template.data
+package com.rehman.template.data.network
 
 import android.util.Log
 import com.rehman.template.core.enums.ApiTypes

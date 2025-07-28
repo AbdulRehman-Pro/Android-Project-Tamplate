@@ -7,17 +7,16 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.rehman.template.R
 import com.rehman.template.core.utils.ProjectUtils
-import com.rehman.template.data.Resource
+import com.rehman.template.data.network.Resource
 import com.rehman.template.databinding.ActivityMainBinding
-import com.rehman.template.ui.mainscreen.model.MainApiResponse
+import com.rehman.template.model.MainApiResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         private const val TAG = "MainActivity"
     }
 
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun observers(){
+    private fun observers() {
 
         viewModel.apiResponse.observe(this) {
             when (it) {
@@ -64,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                         )
 
                         Log.d(TAG, "ResponseSuccess: $userLoginResponse")
-
 
 
                     }

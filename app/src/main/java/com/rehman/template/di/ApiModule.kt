@@ -7,8 +7,10 @@ import com.google.gson.GsonBuilder
 import com.google.gson.Strictness
 import com.rehman.template.BuildConfig
 import com.rehman.template.ui.mainscreen.MainActivity
-import com.rehman.template.data.ApiService
 import com.rehman.template.core.utils.PrefUtils
+import com.rehman.template.data.ApiService
+import com.rehman.template.data.network.PrettyHttpLogger
+import com.rehman.template.data.network.PrettyRequestInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,7 +49,8 @@ object ApiModule {
 
     @Provides
     fun provideClient(@ApplicationContext context: Context): OkHttpClient {
-        val interceptor = HttpLoggingInterceptor().apply {
+        val interceptor = HttpLoggingInterceptor(PrettyHttpLogger()).apply {
+            level = HttpLoggingInterceptor.Level.HEADERS
             level = HttpLoggingInterceptor.Level.BODY
         }
 
@@ -59,15 +62,8 @@ object ApiModule {
 
                 // Add Authorization header if the token is not null
                 authToken?.let {
-                    Log.i(
-                        "okhttp.OkHttpClient",
-                        "Authorization Header: Bearer $it\n-----------------------------------------------"
-                    )
                     requestBuilder.addHeader("Authorization", "Bearer $it")
-                } ?: Log.i(
-                    "okhttp.OkHttpClient",
-                    "No Authorization Header\n-----------------------------------------------"
-                )
+                }
 
                 // You can add any other headers you want to add to the request here
                 // Example:
@@ -93,6 +89,7 @@ object ApiModule {
                 response
 
             }
+            .addInterceptor(PrettyRequestInterceptor())
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

@@ -1,4 +1,4 @@
-package com.rehman.template.data
+package com.rehman.template.data.network
 
 sealed class Resource<T>(
     val data: T? = null,

@@ -11,6 +11,12 @@ object NetworkUtils {
     private var networkCallback: ConnectivityManager.NetworkCallback? = null
     private const val TAG = "NetworkUtils"
 
+
+    fun isNetworkAvailable(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        return cm.activeNetworkInfo?.isConnectedOrConnecting == true
+    }
+
     fun registerNetworkCallback(context: Context, onNetworkStatusChanged: (Boolean) -> Unit) {
         connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 

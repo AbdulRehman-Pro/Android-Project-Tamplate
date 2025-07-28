@@ -1,4 +1,4 @@
-package com.rehman.template.ui.mainscreen.model
+package com.rehman.template.model
 
 import com.google.gson.annotations.SerializedName
 

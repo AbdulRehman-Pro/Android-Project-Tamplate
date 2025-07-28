@@ -2,12 +2,14 @@ package com.rehman.template.data
 
 
 import com.rehman.template.core.enums.ApiTypes
+import com.rehman.template.data.network.ApiConverter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class RemoteDataRepository @Inject constructor(private val apiService: ApiService) : ApiConverter() {
+class RemoteDataRepository @Inject constructor(private val apiService: ApiService) :
+    ApiConverter() {
 
     // Auth APIs
     fun authLoginUser(email: String, password: String) = flow {
